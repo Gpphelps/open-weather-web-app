@@ -103,14 +103,11 @@ function getCity() {
     .then(function (response) {
 
       var cityName = response.name;
-
-
       var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lat + "&appid=" + APIKey + "&units=imperial";
 
       fetch(oneCallUrl)
         .then(response2 => response2.json())
         .then(function (response2) {
-          console.log(response2);
 
           var dateEl = $('<h5>').text(moment.unix(response2.daily[0].dt).format('dddd MMM Do',));
           var temp = "Temperature: " + response2.current.temp;
@@ -123,7 +120,8 @@ function getCity() {
           $("#currentWeatherCard").append(cityName, dateEl, weatherIcon, temp, humidity, windSpeed, UVI);
 
           $(".fiveDayDisplay").empty();
-
+          
+          
           for (var i = 1; i < 6; i++) {
             var fiveDayDateEl = moment.unix(response2.daily[i].dt).format('dddd MMM Do');
             var fiveDayTempHigh = "High Temperature: " + response2.daily[i].temp.max;
@@ -132,6 +130,7 @@ function getCity() {
             var fiveDayWindSpeed = "Wind Speed: " + response2.daily[i].wind_speed;
             var fiveDayUVI = "UV Index: " + response2.daily[i].uvi;
             var fiveDayWeatherIcon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response2.daily[i].weather[0].icon + "@2x.png");
+            fiveDayWeatherIcon.attr("width", 50);
             var forcastDiv = $("<div>")
             var tempHighEl = $("<h3>").text(fiveDayTempHigh);
             var tempLowEl = $("<h3>").text(fiveDayTempMin);
@@ -139,9 +138,10 @@ function getCity() {
             var windSpeedEl = $("<h3>").text(fiveDayWindSpeed);
             var uviEl = $("<h3>").text(fiveDayUVI);
             $(".fiveDayDisplay").append(forcastDiv);
-            forcastDiv.append(fiveDayDateEl, fiveDayWeatherIcon, tempHighEl, tempLowEl, humidityEl, windSpeedEl, uviEl);
-
+            forcastDiv.append("<div class=fiveDayColor>");
+            $(".fiveDayColor").append(fiveDayDateEl, fiveDayWeatherIcon, tempHighEl, tempLowEl, humidityEl, windSpeedEl, uviEl);
           }
+          
         })
     })
 }
