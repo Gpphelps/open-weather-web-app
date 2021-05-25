@@ -1,14 +1,27 @@
 .card {
     background-color: gray;
+    width: max-content;
 }
 
-.fiveDayColor {
+#fiveDayForcastCard {
     padding: 20px;
     background-color: #1E90FF;
-    color: white;
     float: left;
-    margin: 10px;
     border: 1px solid black;
-    border-radius: 1px;
-
+    border-radius: 5px;
 }
+
+.low {
+    color: rgb(10, 238, 59);
+}
+.moderate {
+    color: rgb(241, 218, 10);
+}
+.high {
+    color: rgb(255, 38, 0);
+}
+
+body {
+    background-color: rgb(51, 39, 39);
+}
+
